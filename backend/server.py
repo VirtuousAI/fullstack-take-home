@@ -2,6 +2,7 @@ from flask import Flask, Response
 import json
 import lorem
 import random
+from time import sleep
 
 app = Flask(__name__)
 
@@ -28,6 +29,7 @@ def stream_string():
             if len(buffer.encode('utf-8')) >= 5 and buffer[-1] != '\\':
                 yield json.dumps({"text": buffer, "done": False}) + "\n"
                 buffer = ""
+                sleep(0.005)
         
         if buffer:
             yield json.dumps({"text": buffer, "done": False}) + "\n"
